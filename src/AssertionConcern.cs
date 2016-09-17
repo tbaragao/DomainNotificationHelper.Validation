@@ -35,7 +35,7 @@ namespace DomainNotificationHelper.Validation
             var regex = new Regex(pattern);
 
             return (!regex.IsMatch(stringValue))
-                ? new DomainNotification("AssertArgumentLength", message)
+                ? new DomainNotification("AssertArgumentMatches", message)
                 : null;
         }
 
@@ -70,28 +70,28 @@ namespace DomainNotificationHelper.Validation
         public static DomainNotification AssertAreEquals(string value, string match, string message)
         {
             return (!(value == match))
-                ? new DomainNotification("AssertArgumentTrue", message)
+                ? new DomainNotification("AssertArgumentEquals", message)
                 : null;
         }
 
         public static DomainNotification AssertIsGreaterThan(int value1, int value2, string message)
         {
             return (!(value1 > value2))
-                ? new DomainNotification("AssertArgumentTrue", message)
+                ? new DomainNotification("AssertArgumentGreatherThan", message)
                 : null;
         }
 
         public static DomainNotification AssertIsGreaterThan(decimal value1, decimal value2, string message)
         {
             return (!(value1 > value2))
-                ? new DomainNotification("AssertArgumentTrue", message)
+                ? new DomainNotification("AssertArgumentGreatherThan", message)
                 : null;
         }
 
         public static DomainNotification AssertIsGreaterOrEqualThan(int value1, int value2, string message)
         {
             return (!(value1 >= value2))
-                ? new DomainNotification("AssertArgumentTrue", message)
+                ? new DomainNotification("AssertArgumentGreatherOrEqualThan", message)
                 : null;
         }
 
@@ -99,6 +99,19 @@ namespace DomainNotificationHelper.Validation
         {
             return (!Regex.IsMatch(value, regex, RegexOptions.IgnoreCase))
                 ? new DomainNotification("AssertRegexNotMatch", message)
+                : null;
+        }
+
+        /// <summary>
+        /// Check if Guid value is different of Guid.Empty
+        /// </summary>
+        /// <param name="value">Not nullable Guid</param>
+        /// <param name="message">Message to return if Assert occurred</param>
+        /// <returns>DomainNotification object</returns>
+        public static DomainNotification AssertGuidIsNotEmpty(Guid value, string message)
+        {
+            return (value == Guid.Empty)
+                ? new DomainNotification("AssertGuidIsEmpty", message)
                 : null;
         }
 
